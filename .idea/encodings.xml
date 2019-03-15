@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/itcast-sms" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/parent335/pinyougou-service-buyer" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/parent335/pinyougou-service-page" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/parent335/pinyougou-service-search" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/parent335/pinyougou-service-sellergoods" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/parent335/pinyougou-service-user" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/parent335/pinyougou-web-manager" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/parent335/pinyougou-web-protal" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/parent335/pinyougou-web-shop" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/parent335/pinyougou-web-user" charset="UTF-8" />
+  </component>
+</project>
