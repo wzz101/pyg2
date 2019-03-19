@@ -578,7 +578,7 @@ the specific language governing permissions and limitations under the Apache Lic
      * opts.tokenSeparators array and uses opts.createSearchChoice to create the choice object. Both of those
      * two options have to be defined in order for the tokenizer to work.
      *
-     * @param input text user has typed so far or pasted into the search field
+     * @param input text usermanage has typed so far or pasted into the search field
      * @param selection currently selected choices
      * @param selectCallback function(choice) callback tho add the choice to selection
      * @param opts select2's opts
@@ -795,7 +795,7 @@ the specific language governing permissions and limitations under the Apache Lic
                 // initialize selection based on the current value of the source element
                 this.initSelection();
 
-                // if the user has provided a function that can set selection based on the value of the source element
+                // if the usermanage has provided a function that can set selection based on the value of the source element
                 // we monitor the change event on the element and trigger it, allowing for two way synchronization
                 this.monitorSource();
             }
@@ -1954,8 +1954,8 @@ the specific language governing permissions and limitations under the Apache Lic
                 }
             }
 
-            // initializes search's value with nextSearchTerm (if defined by user)
-            // ignore nextSearchTerm if the dropdown is opened by the user pressing a letter
+            // initializes search's value with nextSearchTerm (if defined by usermanage)
+            // ignore nextSearchTerm if the dropdown is opened by the usermanage pressing a letter
             if(this.search.val() === "") {
                 if(this.nextSearchTerm != undefined){
                     this.search.val(this.nextSearchTerm);
@@ -2851,8 +2851,8 @@ the specific language governing permissions and limitations under the Apache Lic
 
             this.focusSearch();
 
-            // initializes search's value with nextSearchTerm (if defined by user)
-            // ignore nextSearchTerm if the dropdown is opened by the user pressing a letter
+            // initializes search's value with nextSearchTerm (if defined by usermanage)
+            // ignore nextSearchTerm if the dropdown is opened by the usermanage pressing a letter
             if(this.search.val() === "") {
                 if(this.nextSearchTerm != undefined){
                     this.search.val(this.nextSearchTerm);
