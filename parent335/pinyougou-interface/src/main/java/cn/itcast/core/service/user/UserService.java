@@ -1,5 +1,7 @@
 package cn.itcast.core.service.user;
 
+import cn.itcast.core.entity.PageResult;
+import cn.itcast.core.pojo.ad.Content;
 import cn.itcast.core.pojo.user.User;
 
 public interface UserService {
@@ -16,4 +18,6 @@ public interface UserService {
      * @param smscode
      */
     public void add(User user, String smscode);
+
+
 }
