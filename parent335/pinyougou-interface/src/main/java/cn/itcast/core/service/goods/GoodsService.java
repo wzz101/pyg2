@@ -4,6 +4,8 @@ import cn.itcast.core.entity.PageResult;
 import cn.itcast.core.pojo.good.Goods;
 import cn.itcast.core.vo.GoodsVo;
 
+import java.util.List;
+
 public interface GoodsService {
     /**
      * 保存商品
@@ -38,5 +40,9 @@ public interface GoodsService {
     public void delete(Long[] ids);
 
     void updateMarketable(Long[] ids, String markeStatus);
+    /**
+     * 查询全部商品
+     */
+    public List<Goods> findAll();
 
 }

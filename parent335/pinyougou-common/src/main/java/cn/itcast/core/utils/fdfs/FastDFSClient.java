@@ -1,4 +1,5 @@
-package cn.itcast.core.utils.fdfs;
+
+		package cn.itcast.core.utils.fdfs;
 
 import org.apache.commons.io.FilenameUtils;
 import org.csource.common.NameValuePair;
@@ -10,7 +11,7 @@ public class FastDFSClient {
 	private TrackerServer trackerServer = null;
 	private StorageServer storageServer = null;
 	private StorageClient1 storageClient = null;
-	
+
 	public FastDFSClient(String conf) throws Exception {
 		if (conf.contains("classpath:")) {
 			conf = conf.replace("classpath:", this.getClass().getResource("/").getPath());
@@ -21,7 +22,7 @@ public class FastDFSClient {
 		storageServer = null;
 		storageClient = new StorageClient1(trackerServer, storageServer);
 	}
-	
+
 	/**
 	 * 上传文件方法
 	 * <p>Title: uploadFile</p>
@@ -36,7 +37,7 @@ public class FastDFSClient {
 		String result = storageClient.upload_file1(fileName, extName, metas);
 		return result;
 	}
-	
+
 	public String uploadFile(byte[] file, String fileName, long fileSize) throws Exception {
 		NameValuePair[] metas = new NameValuePair[3];
 		metas[0] = new NameValuePair("fileName", fileName);
@@ -45,15 +46,15 @@ public class FastDFSClient {
 		String result = storageClient.upload_file1(file, FilenameUtils.getExtension(fileName), metas);
 		return result;
 	}
-	
+
 	public String uploadFile(String fileName) throws Exception {
 		return uploadFile(fileName, null, null);
 	}
-	
+
 	public String uploadFile(String fileName, String extName) throws Exception {
 		return uploadFile(fileName, extName, null);
 	}
-	
+
 	/**
 	 * 上传文件方法
 	 * <p>Title: uploadFile</p>
@@ -65,16 +66,17 @@ public class FastDFSClient {
 	 * @throws Exception
 	 */
 	public String uploadFile(byte[] fileContent, String extName, NameValuePair[] metas) throws Exception {
-		
+
 		String result = storageClient.upload_file1(fileContent, extName, metas);
 		return result;
 	}
-	
+
 	public String uploadFile(byte[] fileContent) throws Exception {
 		return uploadFile(fileContent, null, null);
 	}
-	
+
 	public String uploadFile(byte[] fileContent, String extName) throws Exception {
 		return uploadFile(fileContent, extName, null);
 	}
 }
+

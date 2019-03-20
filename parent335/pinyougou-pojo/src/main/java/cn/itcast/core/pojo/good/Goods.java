@@ -2,11 +2,11 @@ package cn.itcast.core.pojo.good;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-
+import cn.afterturn.easypoi.excel.annotation.Excel;
+import cn.afterturn.easypoi.excel.annotation.ExcelTarget;
+@ExcelTarget("goods")
 public class Goods implements Serializable {
-    /**
-     * 主键
-     */
+    @Excel(name = "用户ID_goods")
     private Long id;
 
     /**
@@ -17,8 +17,8 @@ public class Goods implements Serializable {
     /**
      * SPU名
      */
+    @Excel(name = "商品名_goods")
     private String goodsName;
-
     /**
      * 默认SKU
      */
@@ -59,15 +59,15 @@ public class Goods implements Serializable {
      */
     private Long category3Id;
 
-    /**
-     * 小图
-     */
+    @Excel(name = "商品图片_goods",type = 2)
     private String smallPic;
 
     /**
      * 商城价
      */
+    @Excel(name = "商品价格_goods")
     private BigDecimal price;
+
 
     /**
      * 分类模板ID

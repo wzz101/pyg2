@@ -171,4 +171,25 @@ public class CartController {
         }
         return cartList;
     }
+    @RequestMapping("/addGoodsToMyFavorite")
+    public Result addGoodsToMyFavorite(Long itemId){
+        try {
+            //获取当前登陆的用户名
+            String username = SecurityContextHolder.getContext().getAuthentication().getName();//登陆用户名
+            //调用接口进行存储
+            if (itemId!=null){
+                cartService.addGoodsToMyFavorite(username,itemId);
+                return new Result(true,"添加成功");
+            }else {
+                return new Result(false,"所选商品无效");
+            }
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            return new Result(false,e.getMessage());
+        }catch (Exception e) {
+            e.printStackTrace();
+            return new Result(false,"添加失败");
+        }
+    }
+
 }

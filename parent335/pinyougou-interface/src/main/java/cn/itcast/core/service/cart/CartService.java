@@ -24,5 +24,9 @@ public interface CartService {
      * 从redis中取出购物车
      */
     List<Cart> findCartListFromRedis(String username);
+    /*
+    添加到我的收藏
+     */
+    public void addGoodsToMyFavorite(String username,Long itemId);
 
 }

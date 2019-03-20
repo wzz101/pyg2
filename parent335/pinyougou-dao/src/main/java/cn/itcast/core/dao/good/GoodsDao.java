@@ -1,9 +1,9 @@
 package cn.itcast.core.dao.good;
 
+
 import cn.itcast.core.pojo.good.Goods;
 import cn.itcast.core.pojo.good.GoodsQuery;
 import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
 
 public interface GoodsDao {
@@ -28,4 +28,7 @@ public interface GoodsDao {
     int updateByPrimaryKeySelective(Goods record);
 
     int updateByPrimaryKey(Goods record);
+
+    List<String> sjspid(String seller_id);
+
 }

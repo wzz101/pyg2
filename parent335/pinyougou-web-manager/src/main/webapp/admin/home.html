@@ -14,9 +14,10 @@
     <link rel="stylesheet" href="../css/style.css">
 	<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
     <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+
 </head>
 
-<body class="hold-transition skin-blue sidebar-mini">
+<body id="cs" class="hold-transition skin-blue sidebar-mini">
 
    <!-- 内容区域 -->
 
@@ -103,7 +104,252 @@
                 <!-- /.row -->
             </section>
             <!-- 正文区域 /-->
+   <select id="mySelect"  >
+   </select>
+   <script type="text/javascript">
 
+       function f() {
+           var obj=document.getElementById('mySelect');
+           var date=new Date;
+            for (var i=date.getFullYear();i>=(date.getFullYear()-5);i--) {
+                if (i==date.getFullYear()) {
+                    obj.innerHTML="<option value="+i+" selected>"+i+"</option>";
+                }else {
+                    obj.options.add(new Option(i,i));
+                }
+
+            }
+       }
+        f();
+   </script>
+   <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+   <div id="main" style="height:400px"></div>
+   <!-- ECharts单文件引入 -->
+   <script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+   <script type="text/javascript">
+
+       // 路径配置
+       require.config({
+           paths: {
+               echarts: 'http://echarts.baidu.com/build/dist'
+           }
+       });
+       var linedata=[];
+
+       // 使用
+       require(
+           [
+               'echarts',
+               'echarts/chart/bar', // 使用柱状图就加载bar模块，按需加载
+               'echarts/chart/line'
+           ],
+       function (ec){
+
+           $(function() {
+                var val=$("#mySelect option:selected").val();
+                   //document.getElementById('mySelect');
+                   var url="/echarts/line.do?time="+val+"";
+                   $.ajax({
+                       type : "get",
+                       url :url ,
+                       dataType : 'json',
+                       success : function(data) {
+                           var yysdata = data.yysdata;
+                           if(yysdata != null){
+                               linedata = yysdata;
+                               myChart.setOption({
+                                   xAxis: {
+                                       //获取数据
+                                       data: data.categories
+                                   },
+                                   series: [linedata]
+                               });
+                           }
+                       }
+                   });
+           });
+
+           $(function() {
+               $('#mySelect').on('change', function() {
+                   var val = $(this).val();
+                   var url="/echarts/line.do?time="+val+"";
+                   $.ajax({
+                       type : "get",
+                       url :url ,
+                       dataType : 'json',
+                       success : function(data) {
+                           var yysdata = data.yysdata;
+                           if(yysdata != null){
+                               linedata = yysdata;
+                               myChart.setOption({
+                                   xAxis: {
+                                       //获取数据
+                                       data: data.categories
+                                   },
+                                   series: [linedata]
+                               });
+                           }
+                       }
+                   });
+               });
+           });
+
+               // 基于准备好的dom，初始化echarts图表
+           var myChart = ec.init(document.getElementById('main'));
+               var option = {
+
+                   title : {
+                       text: '月销量'
+                   },
+                   tooltip : {
+                       trigger: 'axis'
+                   },
+                   legend: {
+                       data:['销量']
+                   },
+                   toolbox: {
+                       show : true,
+                       feature : {
+                           mark : {show: true},
+                           dataView : {show: true, readOnly: false},
+                           magicType : {show: true, type: ['line', 'bar']},
+                           restore : {show: true},
+                           saveAsImage : {show: true}
+                       }
+                   },
+                   calculable : true,
+                   xAxis : [
+                       {
+                           type : 'category',
+                           boundaryGap : false,
+                           data : ['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月']
+                       }
+                   ],
+                   yAxis : [
+                       {
+                           type : 'value'
+
+                       }
+                   ],
+                   series : []
+               };
+               // 为echarts对象加载数据
+               myChart.setOption(option);
+           }
+       );
+   </script>
+   <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+   <div id="main1" style="height:400px"></div>
+   <!-- ECharts单文件引入 -->
+   <script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+   <script type="text/javascript">
+       // 路径配置
+       require.config({
+           paths: {
+               echarts: 'http://echarts.baidu.com/build/dist'
+           }
+       });
+
+       var piedata=[];
+       // 使用
+       require(
+           [
+               'echarts',
+               'echarts/chart/funnel',
+               'echarts/chart/pie'
+           ],
+           function (ec) {
+
+               $(function() {
+                   var val=$("#mySelect option:selected").val();
+                   //document.getElementById('mySelect');
+                   var url="/echarts/pie.do?time="+val+"";
+                   $.ajax({
+                       type : "get",
+                       url :url ,
+                       dataType : 'json',
+                       success : function(data) {
+                           if(data != null){
+                               piedata = data;
+                               myChart.setOption({
+                                   calculable : true,
+                                   series:[ piedata]
+                               });
+                           }
+                       }
+                   });
+
+               });
+
+               $(function() {
+                   $('#mySelect').on('change', function() {
+                       var val = $(this).val();
+                       var url="/echarts/pie.do?time="+val+"";
+                       $.ajax({
+                           type : "get",
+                           url :url ,
+                           dataType : 'json',
+                           success : function(data) {
+                               if(data != null){
+                                   piedata = data;
+                                   myChart.setOption({
+                                       calculable : true,
+                                       series: [piedata]
+                                   });
+                               }
+                           }
+                       });
+                   });
+               });
+               // 基于准备好的dom，初始化echarts图表
+               var myChart = ec.init(document.getElementById('main1'));
+
+               var option = {
+                   title : {
+                       text: '月销售金额',
+                       x:'center'
+                   },
+                   tooltip : {
+                       trigger: 'item',
+                       formatter: "{a} <br/>{b} : {c} ({d}%)"
+                   },
+                   legend: {
+                       orient : 'vertical',
+                       x : 'left',
+                       data : ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
+                   },
+                   toolbox: {
+                       show : true,
+                       feature : {
+                           mark : {show: true},
+                           dataView : {show: true, readOnly: false},
+                           magicType : {
+                               show: true,
+                               type: ['pie', 'funnel'],
+                               option: {
+                                   funnel: {
+                                       x: '25%',
+                                       width: '50%',
+                                       funnelAlign: 'left',
+                                       max: 1548
+                                   }
+                               }
+                           },
+                           restore : {show: true},
+                           saveAsImage : {show: true}
+                       }
+                   },
+                   calculable : true,
+                   series : []
+               };
+               // 为echarts对象加载数据
+               myChart.setOption(option);
+           }
+       );
+   </script>
+
+
+</body>
         <!-- 内容区域 /-->
 </body>
 

@@ -27,8 +27,12 @@
     <script type="text/javascript" src="../js/service/goodsService.js"></script>
     <script type="text/javascript" src="../js/service/itemCatService.js"></script>
     <script type="text/javascript" src="../js/service/uploadService.js"></script>  
-    <script type="text/javascript" src="../js/service/typeTemplateService.js"></script>  
- 
+    <script type="text/javascript" src="../js/service/typeTemplateService.js"></script>
+    <script type="text/javascript">
+        function downExcel() {
+            window.location.href="/goods/downExcel.do";
+        }
+    </script>
 </head>
 
 <body class="hold-transition skin-red sidebar-mini" ng-app="pinyougou" ng-controller="goodsController" ng-init="findItemCatList()">
@@ -52,6 +56,7 @@
                                         <button type="button" class="btn btn-default" title="提交审核" ><i class="fa fa-check"></i> 提交审核</button>
                                         <button type="button" class="btn btn-default" title="屏蔽" onclick='confirm("你确认要屏蔽吗？")'><i class="fa fa-ban"></i> 屏蔽</button>
                                         <button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();"><i class="fa fa-refresh"></i> 刷新</button>
+                                        <button type="button" class="btn btn-default" title="下载表格" onclick="downExcel()"><i class="fa fa-check"></i> 下载表格</button>
                                     </div>
                                 </div>
                             </div>

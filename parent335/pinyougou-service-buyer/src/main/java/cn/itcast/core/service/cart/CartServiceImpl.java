@@ -11,6 +11,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -124,5 +125,39 @@ public class CartServiceImpl implements CartService {
             return oldCartList;
         }
         return oldCartList;
+    }
+    /*
+添加到我的收藏
+ */
+    @Override
+    public void addGoodsToMyFavorite(String username, Long itemId) {
+        List<Item> myFavorite = findMyFavorite(username);
+        Item item = itemDao.selectByPrimaryKey(itemId);
+        if (myFavorite!=null){
+            //将商品追加到我的收藏
+            //查询该商品在我的购物车是否存在
+            for (Item tbItem : myFavorite) {
+                if (tbItem.getId().longValue()==item.getId().longValue()){//存在
+                    throw new RuntimeException("该商品已被加入我的收藏!");
+                }
+            }
+            //不存在
+            myFavorite.add(item);
+            redisTemplate.boundHashOps("myFavorite").put(username,myFavorite);
+        }else {
+            //创建收藏夹
+            myFavorite=new ArrayList<Item>();
+            myFavorite.add(item);
+            redisTemplate.boundHashOps("myFavorite").put(username,myFavorite);
+        }
+    }
+
+    private List<Item> findMyFavorite(String username) {
+
+        List<Item> myFavorite = (List<Item>) redisTemplate.boundHashOps("myFavorite").get(username);
+        if (myFavorite!=null){
+            return myFavorite;
+        }
+        return null;
     }
 }

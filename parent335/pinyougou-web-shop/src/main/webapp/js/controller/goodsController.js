@@ -255,4 +255,16 @@ app.controller('goodsController' ,function($scope,$controller,$location,typeTemp
 			}
 		});
 	}
+    $scope.isMarketable = ["下架","上架"];
+    $scope.updateMarketable=function(markeStatus){
+        //获取选中的复选框
+        goodsService.updateMarketable( $scope.selectIds ,markeStatus).success(
+            function(response){
+                if(response.flag){
+                    $scope.reloadList();//刷新列表
+                    $scope.selectIds = [];
+                }
+            }
+        );
+    }
 });	

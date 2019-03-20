@@ -1,5 +1,7 @@
 package cn.itcast.core.controller.brand;
 
+import cn.afterturn.easypoi.excel.ExcelImportUtil;
+import cn.afterturn.easypoi.excel.entity.ImportParams;
 import cn.itcast.core.entity.PageResult;
 import cn.itcast.core.entity.Result;
 import cn.itcast.core.pojo.good.Brand;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
@@ -118,4 +121,27 @@ public class BrandController {
             return new Result(false, "审核失败");
         }
     }
+    @RequestMapping("/importExcel.do")
+    public Result importExcel(){
+        try {
+            String filePath = "C:\\Users\\juchen\\Desktop\\1.xls";
+            ImportParams params = new ImportParams();
+            params.setHeadRows(1);
+            params.setTitleRows(1);
+            List<Brand> list = brandService.findAll();
+
+            List<Brand> brandList = ExcelImportUtil.importExcel(new File(filePath), Brand.class, params);
+            for (Brand brand : brandList) {
+                brandService.add(brand);
+                System.out.println(brand.getName());
+            }
+            return new Result(true,"上传成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(false,"上传失败");
+        }
+
+
+    }
+
 }

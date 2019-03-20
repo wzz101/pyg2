@@ -1,25 +1,29 @@
 package cn.itcast.core.pojo.good;
 
-import java.io.Serializable;
+import cn.afterturn.easypoi.excel.annotation.Excel;
+import cn.afterturn.easypoi.excel.annotation.ExcelTarget;
 
+import java.io.Serializable;
+@ExcelTarget("brand")
 public class Brand implements Serializable {
     private Long id;
 
-    /**
-     * 品牌名称
-     */
+    @Excel(name = "名字_brand")
     private String name;
+
+    /**
+     * 品牌首字母
+     */
+    @Excel(name = "首字母_brand")
+    private String firstChar;
+
 
     private String status;
 
     public Brand() {
     }
 
-    /**
-     * 品牌首字母
-     */
 
-    private String firstChar;
 
 
 

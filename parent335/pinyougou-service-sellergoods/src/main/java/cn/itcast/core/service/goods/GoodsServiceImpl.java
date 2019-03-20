@@ -65,6 +65,14 @@ public class GoodsServiceImpl implements GoodsService{
 
     @Resource
     private Destination queueSolrDeleteDestination;
+
+
+    @Override
+    public List<Goods> findAll() {
+        List<Goods> goodsList = goodsDao.selectByExample(null);
+        return goodsList;
+    }
+
     /**
      * 保存商品
      * @param goodsVo

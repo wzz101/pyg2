@@ -12,18 +12,26 @@
     <link rel="stylesheet" href="../plugins/adminLTE/css/AdminLTE.css">
     <link rel="stylesheet" href="../plugins/adminLTE/css/skins/_all-skins.min.css">
     <link rel="stylesheet" href="../css/style.css">
+    <script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+    <!-- 引入angular的js -->
+    <script type="text/javascript" src="../plugins/angularjs/angular.min.js"></script>
+    <script type="text/javascript" src="../js/base.js"></script>
+    <script type="text/javascript" src="../js/controller/indexController.js"></script>
+    <script type="text/javascript" src="../js/service/loginService.js"></script>
 </head>
 
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini" >
 
    <!-- 内容区域 -->
 
 
             <!-- 内容头部 -->
-            <section class="content-header">
+            <section class="content-header" ng-app="pinyougou"  ng-controller="indexController" ng-init="showName()">
                 <h1>
                     控制面板
-                    <small>首页</small>
+                    <small >首页</small>
+                    <p id="yh" hidden >{{loginName}}</p>
                 </h1>
                 <ol class="breadcrumb">
                     <li><a href="all-admin-index.html"><i class="fa fa-dashboard"></i> 首页</a></li>
@@ -72,7 +80,7 @@
                         <div class="small-box bg-yellow">
                             <div class="inner">
                                 <h3>44</h3>
-
+                                <p >${session.SPRING_SECURITY_CONTEXT.authentication.principal.username}</p>
                                 <p>新注册用户</p>
                             </div>
                             <div class="icon">
@@ -101,7 +109,158 @@
                 <!-- /.row -->
             </section>
             <!-- 正文区域 /-->
+   <select id="mySelect"  >
+   </select>
+   <script type="text/javascript">
 
+       function f() {
+           var obj=document.getElementById('mySelect');
+           var date=new Date;
+           for (var i=date.getFullYear();i>=(date.getFullYear()-5);i--) {
+               if (i==date.getFullYear()) {
+                   obj.innerHTML="<option value="+i+" selected>"+i+"</option>";
+               }else {
+                   obj.options.add(new Option(i,i));
+               }
+
+           }
+       }
+       f();
+   </script>
+   <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+   <div id="main" style="height:380px"></div>
+   <!-- ECharts单文件引入 -->
+   <script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+   <script type="text/javascript">
+
+       // 路径配置
+       require.config({
+           paths: {
+               echarts: 'http://echarts.baidu.com/build/dist'
+           }
+       });
+       var linedata=[];
+       var lineNamedata=[];
+       var yh;
+       var url;
+
+       // 使用
+       require(
+           [
+               'echarts',
+               'echarts/chart/bar', // 使用柱状图就加载bar模块，按需加载
+               'echarts/chart/line'
+           ],
+           function (ec){
+
+               $(function() {
+                   var val=$("#mySelect option:selected").val();
+                   $.ajax({
+                       type : "get",
+                       url :"/login/showName.do",
+                       dataType : 'json',
+                       success : function(data) {
+                           yh=data.username;
+
+                           url="/echarts/line.do?time="+val+"&id="+yh;
+
+                           $.ajax({
+                               type : "get",
+                               url :url ,
+                               dataType : 'json',
+                               success : function(data) {
+                                   for(var d in data){
+                                       if (d!=null){
+                                           linedata.push(data[d]);
+                                           lineNamedata.push(linedata.name);
+                                       }
+                                   }
+                                   myChart.setOption({
+                                       legend: {
+                                           data:linedata
+                                       },
+                                       xAxis: {
+                                           //获取数据
+                                           data: data.categories
+                                       },
+                                       series: linedata
+                                   });
+                               }
+                           });
+                       }
+                   })
+
+               });
+
+               $(function() {
+                   $('#mySelect').on('change', function() {
+                       var val = $(this).val();
+                       var url="/echarts/line.do?time="+val+"&id="+yh;
+                       $.ajax({
+                           type : "get",
+                           url :url ,
+                           dataType : 'json',
+                           success : function(data) {
+                               var yysdata = data.yysdata;
+                               if(yysdata != null){
+                                   linedata = yysdata;
+                                   myChart.setOption({
+                                       xAxis: {
+                                           //获取数据
+                                           data: data.categories
+                                       },
+                                       series: [linedata]
+                                   });
+                               }
+                           }
+                       });
+                   });
+               });
+
+               // 基于准备好的dom，初始化echarts图表
+               var myChart = ec.init(document.getElementById('main'));
+               var option = {
+
+                   title : {
+                       text: '月销量'
+                   },
+                   tooltip : {
+                       trigger: 'axis'
+                   },
+                   legend: {
+                       data:[]
+                   },
+                   toolbox: {
+                       show : true,
+                       feature : {
+                           mark : {show: true},
+                           dataView : {show: true, readOnly: false},
+                           magicType : {show: true, type: ['line', 'bar']},
+                           restore : {show: true},
+                           saveAsImage : {show: true}
+                       }
+                   },
+                   calculable : true,
+                   xAxis : [
+                       {
+                           type : 'category',
+                           boundaryGap : false,
+                           data : ['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月']
+                       }
+                   ],
+                   yAxis : [
+                       {
+                           type : 'value'
+
+                       }
+                   ],
+                   series : []
+               };
+               // 为echarts对象加载数据
+               myChart.setOption(option);
+           }
+       );
+       </script>
         <!-- 内容区域 /-->
 </body>
 

@@ -94,7 +94,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select 
+    select
     id,item_id,goods_id,order_id,title,price,num,total_fee,pic_path,seller_id
     from tb_order_item
     where id = #{id,jdbcType=BIGINT}
@@ -110,14 +110,14 @@
     </if>
   </delete>
   <insert id="insert" parameterType="cn.itcast.core.pojo.order.OrderItem" >
-    insert into tb_order_item (id, item_id, goods_id, 
-      order_id, title, price, 
-      num, total_fee, pic_path, 
-      seller_id)
-    values (#{id,jdbcType=BIGINT}, #{itemId,jdbcType=BIGINT}, #{goodsId,jdbcType=BIGINT}, 
-      #{orderId,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, 
-      #{num,jdbcType=INTEGER}, #{totalFee,jdbcType=DECIMAL}, #{picPath,jdbcType=VARCHAR}, 
-      #{sellerId,jdbcType=VARCHAR})
+    insert into tb_order_item (id, item_id, goods_id,
+    order_id, title, price,
+    num, total_fee, pic_path,
+    seller_id)
+    values (#{id,jdbcType=BIGINT}, #{itemId,jdbcType=BIGINT}, #{goodsId,jdbcType=BIGINT},
+    #{orderId,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL},
+    #{num,jdbcType=INTEGER}, #{totalFee,jdbcType=DECIMAL}, #{picPath,jdbcType=VARCHAR},
+    #{sellerId,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.itcast.core.pojo.order.OrderItem" >
     insert into tb_order_item
@@ -233,15 +233,15 @@
   <update id="updateByExample" parameterType="map" >
     update tb_order_item
     set id = #{record.id,jdbcType=BIGINT},
-      item_id = #{record.itemId,jdbcType=BIGINT},
-      goods_id = #{record.goodsId,jdbcType=BIGINT},
-      order_id = #{record.orderId,jdbcType=BIGINT},
-      title = #{record.title,jdbcType=VARCHAR},
-      price = #{record.price,jdbcType=DECIMAL},
-      num = #{record.num,jdbcType=INTEGER},
-      total_fee = #{record.totalFee,jdbcType=DECIMAL},
-      pic_path = #{record.picPath,jdbcType=VARCHAR},
-      seller_id = #{record.sellerId,jdbcType=VARCHAR}
+    item_id = #{record.itemId,jdbcType=BIGINT},
+    goods_id = #{record.goodsId,jdbcType=BIGINT},
+    order_id = #{record.orderId,jdbcType=BIGINT},
+    title = #{record.title,jdbcType=VARCHAR},
+    price = #{record.price,jdbcType=DECIMAL},
+    num = #{record.num,jdbcType=INTEGER},
+    total_fee = #{record.totalFee,jdbcType=DECIMAL},
+    pic_path = #{record.picPath,jdbcType=VARCHAR},
+    seller_id = #{record.sellerId,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -282,14 +282,20 @@
   <update id="updateByPrimaryKey" parameterType="cn.itcast.core.pojo.order.OrderItem" >
     update tb_order_item
     set item_id = #{itemId,jdbcType=BIGINT},
-      goods_id = #{goodsId,jdbcType=BIGINT},
-      order_id = #{orderId,jdbcType=BIGINT},
-      title = #{title,jdbcType=VARCHAR},
-      price = #{price,jdbcType=DECIMAL},
-      num = #{num,jdbcType=INTEGER},
-      total_fee = #{totalFee,jdbcType=DECIMAL},
-      pic_path = #{picPath,jdbcType=VARCHAR},
-      seller_id = #{sellerId,jdbcType=VARCHAR}
+    goods_id = #{goodsId,jdbcType=BIGINT},
+    order_id = #{orderId,jdbcType=BIGINT},
+    title = #{title,jdbcType=VARCHAR},
+    price = #{price,jdbcType=DECIMAL},
+    num = #{num,jdbcType=INTEGER},
+    total_fee = #{totalFee,jdbcType=DECIMAL},
+    pic_path = #{picPath,jdbcType=VARCHAR},
+    seller_id = #{sellerId,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <select id="sjInformation" resultMap="BaseResultMap" parameterType="java.lang.String">
+    SELECT
+    id,item_id,goods_id,order_id,title,price,num,total_fee,pic_path,seller_id
+    FROM tb_order_item WHERE order_id =#{param1} AND seller_id=#{param2}
+  </select>
 </mapper>

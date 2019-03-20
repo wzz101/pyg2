@@ -19,4 +19,5 @@ public interface ItemCatService {
      * 查询所有分类
      */
     public List<ItemCat> findAll();
+    List<ItemCat> findByItemCat3(Long parentId);
 }

@@ -79,8 +79,8 @@
   </sql>
   <sql id="Base_Column_List" >
     <if test="fields == null" >
-      id, seller_id, goods_name, default_item_id, audit_status, is_marketable, brand_id, 
-      caption, category1_id, category2_id, category3_id, small_pic, price, type_template_id, 
+      id, seller_id, goods_name, default_item_id, audit_status, is_marketable, brand_id,
+      caption, category1_id, category2_id, category3_id, small_pic, price, type_template_id,
       is_enable_spec, is_delete
     </if>
     <if test="fields != null" >
@@ -102,7 +102,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select 
+    select
     id,seller_id,goods_name,default_item_id,audit_status,is_marketable,brand_id,caption,category1_id,category2_id,category3_id,small_pic,price,type_template_id,is_enable_spec,is_delete
     from tb_goods
     where id = #{id,jdbcType=BIGINT}
@@ -118,21 +118,21 @@
     </if>
   </delete>
   <insert id="insert" parameterType="cn.itcast.core.pojo.good.Goods" >
-    insert into tb_goods (id, seller_id, goods_name, 
-      default_item_id, audit_status, is_marketable, 
-      brand_id, caption, category1_id, 
-      category2_id, category3_id, small_pic, 
-      price, type_template_id, is_enable_spec, 
-      is_delete)
-    values (#{id,jdbcType=BIGINT}, #{sellerId,jdbcType=VARCHAR}, #{goodsName,jdbcType=VARCHAR}, 
-      #{defaultItemId,jdbcType=BIGINT}, #{auditStatus,jdbcType=VARCHAR}, #{isMarketable,jdbcType=VARCHAR}, 
-      #{brandId,jdbcType=BIGINT}, #{caption,jdbcType=VARCHAR}, #{category1Id,jdbcType=BIGINT}, 
-      #{category2Id,jdbcType=BIGINT}, #{category3Id,jdbcType=BIGINT}, #{smallPic,jdbcType=VARCHAR}, 
-      #{price,jdbcType=DECIMAL}, #{typeTemplateId,jdbcType=BIGINT}, #{isEnableSpec,jdbcType=VARCHAR}, 
-      #{isDelete,jdbcType=VARCHAR})
+    insert into tb_goods (id, seller_id, goods_name,
+    default_item_id, audit_status, is_marketable,
+    brand_id, caption, category1_id,
+    category2_id, category3_id, small_pic,
+    price, type_template_id, is_enable_spec,
+    is_delete)
+    values (#{id,jdbcType=BIGINT}, #{sellerId,jdbcType=VARCHAR}, #{goodsName,jdbcType=VARCHAR},
+    #{defaultItemId,jdbcType=BIGINT}, #{auditStatus,jdbcType=VARCHAR}, #{isMarketable,jdbcType=VARCHAR},
+    #{brandId,jdbcType=BIGINT}, #{caption,jdbcType=VARCHAR}, #{category1Id,jdbcType=BIGINT},
+    #{category2Id,jdbcType=BIGINT}, #{category3Id,jdbcType=BIGINT}, #{smallPic,jdbcType=VARCHAR},
+    #{price,jdbcType=DECIMAL}, #{typeTemplateId,jdbcType=BIGINT}, #{isEnableSpec,jdbcType=VARCHAR},
+    #{isDelete,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.itcast.core.pojo.good.Goods"
-  useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+          useGeneratedKeys="true" keyColumn="id" keyProperty="id">
     insert into tb_goods
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -300,21 +300,21 @@
   <update id="updateByExample" parameterType="map" >
     update tb_goods
     set id = #{record.id,jdbcType=BIGINT},
-      seller_id = #{record.sellerId,jdbcType=VARCHAR},
-      goods_name = #{record.goodsName,jdbcType=VARCHAR},
-      default_item_id = #{record.defaultItemId,jdbcType=BIGINT},
-      audit_status = #{record.auditStatus,jdbcType=VARCHAR},
-      is_marketable = #{record.isMarketable,jdbcType=VARCHAR},
-      brand_id = #{record.brandId,jdbcType=BIGINT},
-      caption = #{record.caption,jdbcType=VARCHAR},
-      category1_id = #{record.category1Id,jdbcType=BIGINT},
-      category2_id = #{record.category2Id,jdbcType=BIGINT},
-      category3_id = #{record.category3Id,jdbcType=BIGINT},
-      small_pic = #{record.smallPic,jdbcType=VARCHAR},
-      price = #{record.price,jdbcType=DECIMAL},
-      type_template_id = #{record.typeTemplateId,jdbcType=BIGINT},
-      is_enable_spec = #{record.isEnableSpec,jdbcType=VARCHAR},
-      is_delete = #{record.isDelete,jdbcType=VARCHAR}
+    seller_id = #{record.sellerId,jdbcType=VARCHAR},
+    goods_name = #{record.goodsName,jdbcType=VARCHAR},
+    default_item_id = #{record.defaultItemId,jdbcType=BIGINT},
+    audit_status = #{record.auditStatus,jdbcType=VARCHAR},
+    is_marketable = #{record.isMarketable,jdbcType=VARCHAR},
+    brand_id = #{record.brandId,jdbcType=BIGINT},
+    caption = #{record.caption,jdbcType=VARCHAR},
+    category1_id = #{record.category1Id,jdbcType=BIGINT},
+    category2_id = #{record.category2Id,jdbcType=BIGINT},
+    category3_id = #{record.category3Id,jdbcType=BIGINT},
+    small_pic = #{record.smallPic,jdbcType=VARCHAR},
+    price = #{record.price,jdbcType=DECIMAL},
+    type_template_id = #{record.typeTemplateId,jdbcType=BIGINT},
+    is_enable_spec = #{record.isEnableSpec,jdbcType=VARCHAR},
+    is_delete = #{record.isDelete,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -373,20 +373,27 @@
   <update id="updateByPrimaryKey" parameterType="cn.itcast.core.pojo.good.Goods" >
     update tb_goods
     set seller_id = #{sellerId,jdbcType=VARCHAR},
-      goods_name = #{goodsName,jdbcType=VARCHAR},
-      default_item_id = #{defaultItemId,jdbcType=BIGINT},
-      audit_status = #{auditStatus,jdbcType=VARCHAR},
-      is_marketable = #{isMarketable,jdbcType=VARCHAR},
-      brand_id = #{brandId,jdbcType=BIGINT},
-      caption = #{caption,jdbcType=VARCHAR},
-      category1_id = #{category1Id,jdbcType=BIGINT},
-      category2_id = #{category2Id,jdbcType=BIGINT},
-      category3_id = #{category3Id,jdbcType=BIGINT},
-      small_pic = #{smallPic,jdbcType=VARCHAR},
-      price = #{price,jdbcType=DECIMAL},
-      type_template_id = #{typeTemplateId,jdbcType=BIGINT},
-      is_enable_spec = #{isEnableSpec,jdbcType=VARCHAR},
-      is_delete = #{isDelete,jdbcType=VARCHAR}
+    goods_name = #{goodsName,jdbcType=VARCHAR},
+    default_item_id = #{defaultItemId,jdbcType=BIGINT},
+    audit_status = #{auditStatus,jdbcType=VARCHAR},
+    is_marketable = #{isMarketable,jdbcType=VARCHAR},
+    brand_id = #{brandId,jdbcType=BIGINT},
+    caption = #{caption,jdbcType=VARCHAR},
+    category1_id = #{category1Id,jdbcType=BIGINT},
+    category2_id = #{category2Id,jdbcType=BIGINT},
+    category3_id = #{category3Id,jdbcType=BIGINT},
+    small_pic = #{smallPic,jdbcType=VARCHAR},
+    price = #{price,jdbcType=DECIMAL},
+    type_template_id = #{typeTemplateId,jdbcType=BIGINT},
+    is_enable_spec = #{isEnableSpec,jdbcType=VARCHAR},
+    is_delete = #{isDelete,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+
+  <select id="sjspid" resultType="java.lang.String" parameterType="java.lang.String" >
+    select
+    id from tb_goods
+    where seller_id = #{seller_id}
+  </select>
 </mapper>

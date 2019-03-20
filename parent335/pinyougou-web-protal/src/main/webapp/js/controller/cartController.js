@@ -86,5 +86,17 @@ app.controller('cartController',function($scope,cartService){
 			}				
 		);		
 	}
+    //添加商品到我的收藏
+    $scope.addGoodsToMyFavorite=function (itemId) {
+        cartService.addGoodsToMyFavorite(itemId).success(
+            function (response) {
+                if (response.success) {
+                    alert(response.message);
+                }else {
+                    alert(response.message);
+                }
+            }
+        )
+    }
 	
 });
