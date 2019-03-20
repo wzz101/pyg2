@@ -19,7 +19,7 @@
     <!--配置注册中心地址-->
     <dubbo:registry address="zookeeper://192.168.200.128:2181"/>
     <!--配置doubo协议-->
-    <dubbo:protocol name="dubbo" port="20880"/>
+    <dubbo:protocol name="dubbo" port="20886"/>
     <!--扫描对外暴露的接口地址-->
     <dubbo:annotation package="cn.itcast.core.service"/>
 

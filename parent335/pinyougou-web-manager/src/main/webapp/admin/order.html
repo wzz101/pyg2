@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- 页面meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>订单查询</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../plugins/adminLTE/css/AdminLTE.css">
+    <link rel="stylesheet" href="../plugins/adminLTE/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- 引入angular的js -->
+    <script type="text/javascript" src="../plugins/angularjs/angular.min.js"></script>
+    <!-- 引入分页相关的JS和CSS -->
+    <script type="text/javascript" src="../plugins/angularjs/pagination.js"></script>
+    <link rel="stylesheet" href="../plugins/angularjs/pagination.css">
+
+    <script type="text/javascript" src="../js/base_pagination.js"></script>
+    <script type="text/javascript" src="../js/controller/baseController.js"></script>
+    <script type="text/javascript" src="../js/controller/orderItemController.js"></script>
+    <script type="text/javascript" src="../js/controller/orderController.js"></script>
+    <script type="text/javascript" src="../js/service/orderItemService.js"></script>
+    <script type="text/javascript" src="../js/service/orderService.js"></script>
+</head>
+
+<body class="hold-transition skin-red sidebar-mini" ng-app="pinyougou" ng-controller="orderItemController" >
+<!-- .box-body -->
+
+<div class="box-header with-border">
+    <h3 class="box-title">订单查询</h3>
+</div>
+
+<table id="dataList" class="table table-bordered table-striped table-hover dataTable">
+    <thead>
+    <tr>
+        <th class="" style="padding-right:0px">
+            <input id="selall" type="checkbox" class="icheckbox_square-blue">
+        </th>
+        <th class="sorting_asc">商品id</th>
+
+        <th class="sorting">订单id</th>
+        <th class="sorting">商品标题</th>
+        <th class="sorting">商品单价</th>
+        <th class="sorting">商品购买数量</th>
+        <th class="sorting">创建时间</th>
+
+        <th class="sorting">商品总金额</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="entity in list">
+        <td><input ng-click="updateSelection($event,entity.id)" type="checkbox"></td>
+        <td>{{entity.itemId}}</td>
+
+        <td>{{entity.orderId}}</td>
+        <td>{{entity.title}}</td>
+        <td>{{entity.price}}</td>
+        <td>{{entity.num}}</td>
+        <td>{{entity.createTime}}
+        <td>{{entity.totalFee}}</td>
+        <td class="text-center">
+            <button type="button" ng-click="findOne(entity.sellerId)" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#sellerModal" >详情</button>
+        </td>
+        <td>
+            <span>{{status[entity.status]}}</span>
+        </td>
+
+
+    </tr>
+    </tbody>
+</table>
+
+<!--<div class="box-header with-border">-->
+    <!--<h3 class="box-title">订单查询</h3>-->
+<!--</div>-->
+
+<!--<table id="dataList" class="table table-bordered table-striped table-hover dataTable">-->
+    <!--<thead>-->
+    <!--<tr>-->
+        <!--&lt;!&ndash;<tr>&ndash;&gt;-->
+        <!--<th class="" style="padding-right:0px">-->
+        <!--<input id="selall" type="checkbox" class="icheckbox_square-blue">-->
+        <!--</th>-->
+        <!--<th class="sorting_asc">订单ID</th>-->
+        <!--<th class="sorting">用户ID</th>-->
+        <!--<th class="sorting">支付金额</th>-->
+        <!--<th class="sorting">商家ID</th>-->
+        <!--<th class="sorting">创建时间</th>-->
+        <!--<th class="sorting">订单状态</th>-->
+
+    <!--</tr>-->
+    <!--</thead>-->
+    <!--<tbody>-->
+    <!--<tr ng-repeat="entity in list">-->
+        <!--<td><input ng-click="updateSelection($event,entity.id)" type="checkbox"></td>-->
+        <!--<td>{{entity.orderId}}</td>-->
+        <!--<td>{{entity.userId}}</td>-->
+        <!--<td>{{entity.payment}}</td>-->
+        <!--<td>{{entity.sellerId}}</td>-->
+        <!--<td>{{entity.createTime}}</td>-->
+        <!--<td>{{entity.status}}</td>-->
+        <!--<td>-->
+            <!--<span>{{status[entity.status]}}</span>-->
+        <!--</td>-->
+
+
+    <!--</tr>-->
+    <!--</tbody>-->
+<!--</table>-->
+<!--数据列表/-->
+
+
+</div>
+<!-- 数据表格 /-->
+<!-- 分页 -->
+<tm-pagination conf="paginationConf"></tm-pagination>
+
+</div>
+
+
+
+<!-- 详情 -->
+<div class="modal fade" id="sellerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">详情</h3>
+            </div>
+            <div class="modal-body">
+
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#home" data-toggle="tab">基本信息</a></li>
+                </ul>
+                <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane active in" id="home">
+                        <br>
+                        <table class="table table-bordered table-striped"  width="800px">
+                            <tr>
+                                <td>订单id</td>
+                                <td>{{entity.orderId}}</td>
+                            </tr>
+                            <tr>
+                                <td>实付金额</td>
+                                <td>{{entity.payment}}</td>
+                            </tr>
+                            <tr>
+                                <td>状态</td>
+                                <td>{{entity.status}}</td>
+                            </tr>
+                            <tr>
+                                <td>订单创建时间</td>
+                                <td>{{entity.createTime}}</td>
+                            </tr>
+                            <tr>
+                                <td>物流单号</td>
+                                <td>{{entity.shippingCode}}</td>
+                            </tr>
+                            <tr>
+                                <td>用户id</td>
+                                <td>{{entity.userId}}</td>
+                            </tr>
+                            <tr>
+                                <td>买家留言</td>
+                                <td>{{entity.buyerMessage}}</td>
+                            </tr>
+                            <tr>
+                                <td>买家昵称</td>
+                                <td>{{entity.buyerNick}}</td>
+                            </tr>
+                            <tr>
+                                <td> 收货人地区</td>
+                                <td>{{entity.receiverAreaName}}</td>
+                            </tr>
+                            <tr>
+                                <td>收货人手机</td>
+                                <td>{{entity.receiverMobile}}</td>
+                            </tr>
+                            <tr>
+                                <td>收货人</td>
+                                <td>{{entity.receiver}}</td>
+                            </tr>
+                            <tr>
+                                <td>发票类型</td>
+                                <td>{{entity.invoiceType}}</td>
+                            </tr>
+                            <tr>
+                                <td>订单来源</td>
+                                <td>{{entity.sourceType}}</td>
+                            </tr>
+
+                        </table>
+                    </div>
+
+
+
+                </div>
+                <div class="modal-footer">
+                     <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+                    <!-- /.box-body -->
+
+</body>
+
+</html>

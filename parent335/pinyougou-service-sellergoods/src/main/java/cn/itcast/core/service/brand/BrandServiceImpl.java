@@ -81,7 +81,8 @@ public class BrandServiceImpl implements BrandService {
     @Transactional
     @Override
     public void add(Brand brand) {
-    brandDao.insertSelective(brand);
+
+        brandDao.insertSelective(brand);
     }
 
     /**

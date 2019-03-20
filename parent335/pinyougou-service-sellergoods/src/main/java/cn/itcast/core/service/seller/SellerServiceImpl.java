@@ -60,6 +60,7 @@ public class SellerServiceImpl implements SellerService {
      */
     @Override
     public Seller findOne(String sellerId) {
+
         return sellerDao.selectByPrimaryKey(sellerId);
     }
 
