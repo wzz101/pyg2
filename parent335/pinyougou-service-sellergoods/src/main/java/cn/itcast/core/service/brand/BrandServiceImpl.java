@@ -81,7 +81,8 @@ public class BrandServiceImpl implements BrandService {
     @Transactional
     @Override
     public void add(Brand brand) {
-    brandDao.insertSelective(brand);
+
+        brandDao.insertSelective(brand);
     }
 
     /**
@@ -129,6 +130,22 @@ public class BrandServiceImpl implements BrandService {
     @Override
     public List<Map> selectOptionList() {
         return brandDao.selectOptionList();
+    }
+/*
+* 审核品牌
+* */
+    @Override
+    public void updateStatus(Long[] ids, String status) {
+        Brand brand = new Brand();
+        if (ids != null && ids.length > 0) {
+            brand.setStatus(status);
+
+            for ( final Long id : ids) {
+                brand.setId(id);
+
+            }
+            brandDao.updateByPrimaryKeySelective(brand);
+        }
     }
 
 }

@@ -100,6 +100,22 @@ public class BrandController {
      */
     @RequestMapping("/selectOptionList.do")
     public List<Map> selectOptionList(){
+
         return brandService.selectOptionList();
+    }
+
+    /*
+     * 审核品牌
+     * */
+    @RequestMapping("/updateStatus.do")
+    public Result updateStatus(Long[] ids, String status) {
+
+        try {
+            brandService.updateStatus(ids, status);
+            return new Result(true, "审核成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(false, "审核失败");
+        }
     }
 }

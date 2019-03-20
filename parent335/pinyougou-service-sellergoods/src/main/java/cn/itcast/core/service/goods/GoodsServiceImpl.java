@@ -345,7 +345,6 @@ public class GoodsServiceImpl implements GoodsService{
                         return textMessage;
                     }
                 });
-                //生成商品详情的静态页
             }
         }
     }
@@ -372,5 +371,45 @@ public class GoodsServiceImpl implements GoodsService{
         item.setCategory(itemCatDao.selectByPrimaryKey(goods.getCategory3Id()).getName());//设置分类名称
         item.setBrand(brandDao.selectByPrimaryKey(goods.getBrandId()).getName());//品牌名称
         item.setSeller(sellerDao.selectByPrimaryKey(goods.getSellerId()).getNickName());//商家店铺名称
+    }
+
+    public void updateMarketable(Long[] ids, String markeStatus) {
+        if(ids != null && ids.length > 0){
+            Goods goods = new Goods();
+            goods.setIsMarketable(markeStatus);
+            for (final Long id : ids) {
+                goods.setId(id);
+                // 1、更新商品的审核状态
+                goodsDao.updateByPrimaryKeySelective(goods);
+                // 如果审核通过
+                if("1".equals(markeStatus)){
+                    // 2、将商品进行上架
+                    // 将所有的库存信息保存到索引库中
+                    // 生成该商品详情的静态页面
+                    // 需要将商品id发送到mq中
+                    jmsTemplate.send(topicPageAndSolrDestination, new MessageCreator() {
+                        @Override
+                        public Message createMessage(Session session) throws JMSException {
+                            // 将商品的id封装成消息体进行发送
+                            TextMessage textMessage = session.createTextMessage(String.valueOf(id));
+                            return textMessage;
+                        }
+                    });
+                }else{
+                    // 将商品进行下架：将商品信息从索引库中删除
+                    // 删除静态页：可选(在本项目中不删除)
+                    // 将商品的id发送到mq中
+                    jmsTemplate.send(queueSolrDeleteDestination, new MessageCreator() {
+                        @Override
+                        public Message createMessage(Session session) throws JMSException {
+                            // 将数据封装到消息体
+                            TextMessage textMessage = session.createTextMessage(String.valueOf(id));
+                            return textMessage;
+                        }
+                    });
+
+                }
+            }
+        }
     }
 }

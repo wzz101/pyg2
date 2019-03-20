@@ -95,6 +95,21 @@ public class SpecController {
      */
     @RequestMapping("/selectOptionList.do")
     public List<Map> selectOptionList(){
+
         return specService.selectOptionList();
+    }
+
+    /*
+     *规格审核
+     * */
+    @RequestMapping("/updateStatus.do")
+    public Result updateStatus(Long[] ids, String status) {
+        try {
+            specService.updateStatus(ids, status);
+            return new Result(true, "审核通过");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(false, "审核失败");
+        }
     }
 }

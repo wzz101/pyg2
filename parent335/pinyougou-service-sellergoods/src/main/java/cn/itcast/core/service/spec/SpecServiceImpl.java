@@ -148,4 +148,19 @@ public class SpecServiceImpl implements SpecService {
     public List<Map> selectOptionList() {
         return specificationDao.selectOptionList();
     }
-}
+
+    @Override
+    public void updateStatus(Long[] ids, String status) {
+        Specification specification = new Specification();
+
+        if (ids != null && ids.length > 0) {
+            specification.setStatus(status);
+
+            for ( final Long id : ids) {
+                specification.setId(id);
+
+            }
+            specificationDao.updateByPrimaryKeySelective(specification);
+        }
+    }
+    }

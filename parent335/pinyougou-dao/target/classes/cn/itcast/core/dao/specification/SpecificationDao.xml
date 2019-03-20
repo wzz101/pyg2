@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="cn.itcast.core.pojo.specification.Specification" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="spec_name" property="specName" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -65,7 +66,7 @@
   </sql>
   <sql id="Base_Column_List" >
     <if test="fields == null" >
-      id, spec_name
+      id, spec_name,status
     </if>
     <if test="fields != null" >
       ${fields}
@@ -158,6 +159,9 @@
     <set >
       <if test="specName != null" >
         spec_name = #{specName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}

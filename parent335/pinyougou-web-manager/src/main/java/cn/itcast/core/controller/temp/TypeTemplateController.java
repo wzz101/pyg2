@@ -40,6 +40,20 @@ public class TypeTemplateController {
             e.printStackTrace();
             return new Result(false, "保存失败");
         }
+    }
+
+    /*
+     * 模板审核
+     * */
+    @RequestMapping("/updateStatus.do")
+    public Result updateStatus(Long[] ids, String status) {
+        try {
+            typeTemplateService.updateStatus(ids, status);
+            return new Result(true, "审核通过");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(true, "审核通过");
+        }
 
     }
 }

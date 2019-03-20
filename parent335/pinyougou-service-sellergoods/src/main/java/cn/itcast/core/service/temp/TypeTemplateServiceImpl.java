@@ -74,6 +74,7 @@ public class TypeTemplateServiceImpl implements TypeTemplateService{
     @Transactional
     @Override
     public void add(TypeTemplate typeTemplate) {
+
     typeTemplateDao.insertSelective(typeTemplate);
     }
 
@@ -115,5 +116,21 @@ public class TypeTemplateServiceImpl implements TypeTemplateService{
             }
         }
         return specList;
+    }
+/*
+* 模板审核
+* */
+    @Override
+    public void updateStatus(Long[] ids, String status) {
+        TypeTemplate typeTemplate = new TypeTemplate();
+        if (ids != null && ids.length > 0) {
+            typeTemplate.setStatus(status);
+
+            for ( final Long id : ids) {
+                typeTemplate.setId(id);
+
+            }
+            typeTemplateDao.updateByPrimaryKeySelective(typeTemplate);
+        }
     }
 }
