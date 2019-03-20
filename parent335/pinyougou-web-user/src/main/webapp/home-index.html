@@ -1,24 +1,34 @@
 <!DOCTYPE html>
-<html>
+<div>
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE">
     <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
     <title>我的订单</title>
-     <link rel="icon" href="assets/img/favicon.ico">
+
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
 
     <link rel="stylesheet" type="text/css" href="css/webbase.css" />
     <link rel="stylesheet" type="text/css" href="css/pages-seckillOrder.css" />
-    
+    <!---->
+
+    <script  src="/js/plugins/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="plugins/angularjs/angular.min.js"></script>
-	<script type="text/javascript" src="js/base.js"></script>
-	<script type="text/javascript" src="js/service/loginService.js"></script>
-	<script type="text/javascript" src="js/controller/indexController.js"></script>
-    
+    <!--引入分页的样式、插件-->
+    <link rel="stylesheet" href="plugins/angularjs/pagination.css">
+
+    <script type="text/javascript" src="js/base_pagination.js"></script>
+
+    <script type="text/javascript" src="js/controller/baseController.js"></script>
+    <!--<script type="text/javascript" src="js/controller/userController-bak.js"></script>-->
+    <script type="text/javascript" src="js/controller/indexController-bak.js"></script>
+    <script type="text/javascript" src="js/service/userService-bak.js"></script>
+    <script type="text/javascript" src="js/service/loginService-bak.js"></script>
+
 </head>
 
-<body  ng-app="pinyougou" ng-controller="indexController" ng-init="showName()">
+<body  ng-app="pinyougou" ng-controller="indexController" ng-init="showName();search(1,7);reloadList()">
     <!-- 头部栏位 -->
     <!--页面顶部-->
 <div id="nav-bottom">
@@ -34,7 +44,7 @@
 					<ul class="fr">
 						<li class="f-item">我的订单</li>
 						<li class="f-item space"></li>
-						<li class="f-item"><a href="home.html" target="_blank">我的品优购</a></li>
+						<li class="f-item"><a href="home-index.html" target="_blank">我的品优购</a></li>
 						<li class="f-item space"></li>
 						<li class="f-item">品优购会员</li>
 						<li class="f-item space"></li>
@@ -45,9 +55,9 @@
 						<li class="f-item" id="service">
 							<span>客户服务</span>
 							<ul class="service">
-								<li><a href="cooperation.html" target="_blank">合作招商</a></li>
-								<li><a href="shoplogin.html" target="_blank">商家后台</a></li>
-								<li><a href="cooperation.html" target="_blank">合作招商</a></li>
+								<li><a href="#" target="_blank">合作招商</a></li>
+								<li><a href="#" target="_blank">商家后台</a></li>
+								<li><a href="#" target="_blank">合作招商</a></li>
 								<li><a href="#">商家后台</a></li>
 							</ul>
 						</li>
@@ -63,7 +73,7 @@
 			<div class="py-container">
 				<div class="yui3-g Logo">
 					<div class="yui3-u Left logoArea">
-						<a class="logo-bd" title="品优购" href="JD-index.html" target="_blank"></a>
+						<a class="logo-bd" title="品优购" href="#" target="_blank"></a>
 					</div>
 					<div class="yui3-u Center searchArea">
 						<div class="search">
@@ -92,7 +102,7 @@
 						<div class="fr shopcar">
 							<div class="show-shopcar" id="shopcar">
 								<span class="car"></span>
-								<a class="sui-btn btn-default btn-xlarge" href="cart.html" target="_blank">
+								<a class="sui-btn btn-default btn-xlarge" href="#" target="_blank">
 									<span>我的购物车</span>
 									<i class="shopnum">0</i>
 								</a>
@@ -118,7 +128,7 @@
 							<li class="f-item">闪购</li>
 							<li class="f-item">团购</li>
 							<li class="f-item">有趣</li>
-							<li class="f-item"><a href="seckill-index.html" target="_blank">秒杀</a></li>
+							<li class="f-item"><a href="#" target="_blank">秒杀</a></li>
 						</ul>
 					</div>
 					<div class="yui3-u Right"></div>
@@ -168,10 +178,10 @@ $(function(){
                         <dl>
 							<dt><i>·</i> 订单中心</dt>
 							<dd ><a href="home-index.html"  class="list-active" >我的订单</a></dd>
-							<dd><a href="home-order-pay.html" >待付款</a></dd>
-							<dd><a href="home-order-send.html"  >待发货</a></dd>
-							<dd><a href="home-order-receive.html" >待收货</a></dd>
-							<dd><a href="home-order-evaluate.html" >待评价</a></dd>
+							<dd><a href="home-order-pay.html" ng-click="prePay('1')" >待付款</a></dd>
+							<dd><a href="home-order-send.html" ng-click="prePay('3')">待发货</a></dd>
+							<dd><a href="home-order-receive.html"ng-click="prePay('4')" >待收货</a></dd>
+							<dd><a href="home-order-evaluate.html"ng-click="prePay('7')">待评价</a></dd>
 						</dl>
 						<dl>
 							<dt><i>·</i> 我的中心</dt>
@@ -183,14 +193,14 @@ $(function(){
 						</dl>
 						<dl>
 							<dt><i>·</i> 设置</dt>
-							<dd><a href="home-setting-info.html">个人信息</a></dd>
+							<dd><a href="home-setting-info.html" ng-click="entity={}">个人信息</a></dd>
 							<dd><a href="home-setting-address.html"  >地址管理</a></dd>
 							<dd><a href="home-setting-safe.html" >安全管理</a></dd>
 						</dl>
                     </div>
                 </div>
                 <!--右侧主内容-->
-                <div class="yui3-u-5-6 order-pay">
+                <div class="yui3-u-5-6 order-pay"  >
                     <div class="body">
                         <div class="table-title">
                             <table class="sui-table  order-table">
@@ -207,7 +217,7 @@ $(function(){
                                 </tr>
                             </table>
                         </div>
-                        <div class="order-detail">
+                        <div class="order-detail" >
                             <div class="orders">
                                 <div class="choose-order">
                                     <div class="sui-pagination pagination-large top-pages">
@@ -220,41 +230,46 @@ $(function(){
                                 </div>
 
 								<!--order1-->
-                                <div class="choose-title">
+                                <div class="choose-title" ng-repeat-start="entity in list">
                                     <label data-toggle="checkbox" class="checkbox-pretty ">
-                                           <input type="checkbox" checked="checked"><span>2017-02-11 11:59　订单编号：7867473872181848  店铺：哇哈哈 <a>和我联系</a></span>
+                                           <input type="checkbox" checked="checked"><span>{{entity.updateTime}}　订单编号:{{entity.orderId}}  店铺:{{entity.setSellerNickName}} <a>和我联系</a></span>
                                      </label>
 									  <a class="sui-btn btn-info share-btn">分享</a>
                                 </div>
-                                <table class="sui-table table-bordered order-datatable">
+                                <table class="sui-table table-bordered order-datatable" ng-repeat-end>
                                     <tbody>
-                                        <tr>
+                                        <tr ng-repeat="orderItem in entity.orderItemList">
                                             <td width="35%">
-                                                <div class="typographic"><img src="img/goods.png" />
-                                                    <a href="#" class="block-text">包邮 正品玛姬儿压缩面膜无纺布纸膜100粒 送泡瓶面膜刷喷瓶 新款</a>
-                                                    <span class="guige">规格：温泉喷雾150ml</span>
+                                                <div class="typographic"><img src={{orderItem.picPath}} style="height: 100px; width: 100px;"/>
+                                                    <a href="#" class="block-text">{{orderItem.title}}</a>
+                                                    <span class="guige">{orderItem.specMap.spec}}</span>
                                                 </div>
                                             </td>
                                             <td width="5%" class="center">
                                                 <ul class="unstyled">
-                                                    <li class="o-price">¥599.00</li>
-                                                    <li>¥299.00</li>
+                                                    <li class="o-price">¥{{orderItem.costPirce}}</li>
+                                                    <li>¥{{orderItem.price}}</li>
                                                 </ul>
                                             </td>
-                                            <td width="5%" class="center">1</td>
+                                            <td width="5%" class="center">{{orderItem.num}}</td>
                                             <td width="8%" class="center">
-                                               
+                                                {{entity.status=="4" ? "已发货" :(entity.status=="5" ? "交易成功" :(entity.status=="3" ? "未发货":
+                                                (entity.status=="6" ? "交易关闭":(entity.status=="7" ? "待评价":(entity.status=="1" ? "待付款":
+                                                (entity.status=="2" ? "已付款":null))))))}}
                                             </td>
                                             <td width="10%" class="center" >
                                                 <ul class="unstyled">
-                                                    <li>¥299.00</li>
-                                                    <li>（含运费：￥0.00）</li>
+                                                    <li>¥{{entity.payment}}</li>
+                                                    <li>（含运费：￥{{entity.postFee}}）</li>
                                                 </ul>
                                             </td>
                                             <td width="10%" class="center">
                                                 <ul class="unstyled">
-                                                    <li>等待卖家付款</li>
-                                                    <li><a href="orderDetail.html" class="btn">订单详情 </a></li>
+                                                    <li>{{entity.status=="4" ? "已发货" :(entity.status=="5" ? "交易成功" :(entity.status=="3" ? "未发货":
+                                                        (entity.status=="6" ? "交易关闭":(entity.status=="7" ? "待评价":(entity.status=="1" ? "待付款":
+                                                        (entity.status=="2" ? "已付款":null))))))}}
+                                                    </li>
+                                                    <li><a href="home-orderDetail.html" class="btn" ng-click="">订单详情 </a></li>
                                                 </ul>
                                             </td>
                                             <td width="10%" class="center">
@@ -272,7 +287,7 @@ $(function(){
                                 <!--order2-->
                                 <div class="choose-title">
                                     <label data-toggle="checkbox" class="checkbox-pretty ">
-                                           <input type="checkbox" checked="checked"><span>2017-02-11 11:59　订单编号：7867473872181848  店铺：哇哈哈 <a>和我联系</a></span>
+                                           <input type="checkbox" checked="checked"><span>{{}}2017-02-11 11:59　订单编号：7867473872181848  店铺：哇哈哈 <a>和我联系</a></span>
                                      </label>
 									  <a class="sui-btn btn-info share-btn">分享</a>
                                 </div>
@@ -399,22 +414,27 @@ $(function(){
 
 
                             </div>
-                            <div class="choose-order">
-                                <div class="sui-pagination pagination-large top-pages">
-                                    <ul>
-                                        <li class="prev disabled"><a href="#">«上一页</a></li>
-                                        <li class="active"><a href="#">1</a></li>
-                                        <li><a href="#">2</a></li>
-                                        <li><a href="#">3</a></li>
-                                        <li class="dotted"><span>...</span></li>
-                                        <li class="next"><a href="#">下一页»</a></li>
-                                    </ul>
-                                    <div><span>共10页&nbsp;</span><span>
-                                            到
-                                            <input type="text" class="page-num"><button class="page-confirm" onclick="alert(1)">确定</button>
-                                            页</span></div>
-                                </div>
+                            <div>
+                            <!-- 分页 -->
+                            <tm-pagination conf="paginationConf"></tm-pagination>
                             </div>
+
+                            <!--<div class="choose-order">-->
+                                <!--<div class="sui-pagination pagination-large top-pages">-->
+                                    <!--<ul>-->
+                                        <!--<li class="prev disabled"><a href="#">«上一页</a></li>-->
+                                        <!--<li class="active"><a href="#">1</a></li>-->
+                                        <!--<li><a href="#">2</a></li>-->
+                                        <!--<li><a href="#">3</a></li>-->
+                                        <!--<li class="dotted"><span>...</span></li>-->
+                                        <!--<li class="next"><a href="#">下一页»</a></li>-->
+                                    <!--</ul>-->
+                                    <!--<div><span>共10页&nbsp;</span><span>-->
+                                            <!--到-->
+                                            <!--<input type="text" class="page-num"><button class="page-confirm" onclick="alert(1)">确定</button>-->
+                                            <!--页</span></div>-->
+                                <!--</div>-->
+                            <!--</div>-->
 
                             <div class="clearfix"></div>
                         </div>
@@ -509,7 +529,7 @@ $(function(){
                 </div>
             </div>
         </div>
-    </div>
+    </div></div>
     <!-- 底部栏位 -->
     <!--页面底部-->
 <div class="clearfix footer">

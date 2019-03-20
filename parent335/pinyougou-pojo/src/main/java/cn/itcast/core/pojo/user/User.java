@@ -110,6 +110,20 @@ public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * 活跃度
+     * @return
+     */
+    private String activeCount;
+
+    public String getActiveCount() {
+        return activeCount;
+    }
+
+    public void setActiveCount(String activeCount) {
+        this.activeCount = activeCount;
+    }
+
     public Long getId() {
         return id;
     }
