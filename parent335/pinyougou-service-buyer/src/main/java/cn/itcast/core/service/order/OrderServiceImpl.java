@@ -4,13 +4,18 @@ import cn.itcast.core.dao.item.ItemDao;
 import cn.itcast.core.dao.log.PayLogDao;
 import cn.itcast.core.dao.order.OrderDao;
 import cn.itcast.core.dao.order.OrderItemDao;
+import cn.itcast.core.entity.PageResult;
 import cn.itcast.core.pojo.cart.Cart;
 import cn.itcast.core.pojo.item.Item;
 import cn.itcast.core.pojo.log.PayLog;
 import cn.itcast.core.pojo.order.Order;
 import cn.itcast.core.pojo.order.OrderItem;
+import cn.itcast.core.pojo.order.OrderItemQuery;
+import cn.itcast.core.pojo.order.OrderQuery;
 import cn.itcast.core.utils.uniquekey.IdWorker;
 import com.alibaba.dubbo.config.annotation.Service;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -123,4 +128,23 @@ public class OrderServiceImpl implements OrderService{
         redisTemplate.boundHashOps("paylog").put(username,payLog);
 
     }
+
+
+
+
+    /**
+     * 用户删除订单
+     * @param ids
+     */
+    @Transactional
+    @Override
+    public void delete(Long[] ids) {
+        if(ids != null && ids.length > 0) {
+            for (Long id : ids) {
+                orderDao.deleteByPrimaryKey(id);
+            }
+        }
+    }
+
+
 }

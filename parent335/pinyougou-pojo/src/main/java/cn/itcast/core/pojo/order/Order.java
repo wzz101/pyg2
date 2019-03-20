@@ -3,6 +3,7 @@ package cn.itcast.core.pojo.order;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 public class Order implements Serializable {
     /**
@@ -437,5 +438,19 @@ public class Order implements Serializable {
         result = prime * result + ((getSourceType() == null) ? 0 : getSourceType().hashCode());
         result = prime * result + ((getSellerId() == null) ? 0 : getSellerId().hashCode());
         return result;
+    }
+
+    /**
+     * c
+     *
+     */
+    private List<OrderItem> orderItemList;
+
+    public List<OrderItem> getOrderItemList() {
+        return orderItemList;
+    }
+
+    public void setOrderItemList(List<OrderItem> orderItemList) {
+        this.orderItemList = orderItemList;
     }
 }

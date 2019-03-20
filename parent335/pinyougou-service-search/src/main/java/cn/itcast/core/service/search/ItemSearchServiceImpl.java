@@ -95,6 +95,8 @@ public class ItemSearchServiceImpl implements ItemSearchService {
         solrTemplate.commit();
     }
 
+
+
     //默认加载第一个分类下的商品品牌以及规格
     private Map<String,Object> defaultSelectBrandAndSpecByCategoryByName(String categoryName) {
         //通过分类获取模板id
@@ -264,5 +266,23 @@ public class ItemSearchServiceImpl implements ItemSearchService {
         return map;
 
 
+    }
+
+    /**
+     * c
+     *
+     * @param ids
+     * @return
+     */
+    @Override
+    public List<Item> findByItemId(List<Long> ids) {
+        List<Item> itemList = new ArrayList<>();
+        if (ids != null && ids.size()>0){
+            for (Long itemId : ids) {
+                Item item = itemDao.selectByPrimaryKey(itemId);
+                itemList.add(item);
+            }
+        }
+        return itemList;
     }
 }

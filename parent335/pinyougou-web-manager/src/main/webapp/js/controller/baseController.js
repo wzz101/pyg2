@@ -14,7 +14,22 @@ app.controller("baseController",function($scope){
 		// $scope.findByPage($scope.paginationConf.currentPage,$scope.paginationConf.itemsPerPage);
 		$scope.search($scope.paginationConf.currentPage,$scope.paginationConf.itemsPerPage);
 	}
-	
+    $scope.reloadList1 = function(){
+        // $scope.findByPage($scope.paginationConf.currentPage,$scope.paginationConf.itemsPerPage);
+        $scope.search1($scope.paginationConf.currentPage,$scope.paginationConf.itemsPerPage);
+    }
+    $scope.reloadList0 = function(){
+        // $scope.findByPage($scope.paginationConf.currentPage,$scope.paginationConf.itemsPerPage);
+        $scope.search0($scope.paginationConf.currentPage,$scope.paginationConf.itemsPerPage);
+    }
+    $scope.reloadList3A = function(){
+        // $scope.findByPage($scope.paginationConf.currentPage,$scope.paginationConf.itemsPerPage);
+        $scope.search3A($scope.paginationConf.currentPage,$scope.paginationConf.itemsPerPage);
+    }
+    $scope.reloadList10A = function(){
+        // $scope.findByPage($scope.paginationConf.currentPage,$scope.paginationConf.itemsPerPage);
+        $scope.search10A($scope.paginationConf.currentPage,$scope.paginationConf.itemsPerPage);
+    }
 	// 定义一个数组:
 	$scope.selectIds = [];
 	// 更新复选框：
