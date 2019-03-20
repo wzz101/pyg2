@@ -30,5 +30,8 @@ public interface SpecService {
      */
     List<Map> selectOptionList();
 
-
+/*
+* 规格审核
+* */
+    void updateStatus(Long[] ids, String status);
 }

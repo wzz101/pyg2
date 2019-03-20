@@ -24,4 +24,8 @@ public interface TypeTemplateService {
      * 新增商品：回显规格以及规格选项
      */
     public List<Map> findBySpecList(Long id);
+/*
+* 模板审核
+* */
+    void updateStatus(Long[] ids, String status);
 }

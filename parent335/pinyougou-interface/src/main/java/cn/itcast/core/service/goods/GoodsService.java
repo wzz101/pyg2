@@ -36,4 +36,7 @@ public interface GoodsService {
      * 删除商品（逻辑删除）
      */
     public void delete(Long[] ids);
+
+    void updateMarketable(Long[] ids, String markeStatus);
+
 }
