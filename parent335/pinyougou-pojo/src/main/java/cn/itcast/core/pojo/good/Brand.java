@@ -33,13 +33,6 @@ public class Brand implements Serializable {
         return serialVersionUID;
     }
 
-
-
-
-    //状态
-
-    private String status;
-
 //    商家id
 
 //    private String sellerId;
@@ -94,10 +87,6 @@ public class Brand implements Serializable {
         return sb.toString();
     }
 
-    public String getStatus() {
-        return status;
-    }
-
     public Brand(Long id, String name, String status, String firstChar) {
 
         this.id = id;
@@ -106,9 +95,6 @@ public class Brand implements Serializable {
         this.firstChar = firstChar;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
 
 
 
@@ -128,9 +114,6 @@ public class Brand implements Serializable {
                 && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
                 && (this.getFirstChar() == null ? other.getFirstChar() == null : this.getFirstChar().equals(other.getFirstChar()))
                 && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()));
-            && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
-            && (this.getFirstChar() == null ? other.getFirstChar() == null : this.getFirstChar().equals(other.getFirstChar()))
-                && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()));
     }
 
     @Override
@@ -141,7 +124,6 @@ public class Brand implements Serializable {
         result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
         result = prime * result + ((getFirstChar() == null) ? 0 : getFirstChar().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
-        result = prime * result + ((getStatus() == null) ? 0 :getStatus().hashCode());
         return result;
     }
 
